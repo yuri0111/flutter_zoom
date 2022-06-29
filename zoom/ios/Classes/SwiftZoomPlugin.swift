@@ -109,7 +109,9 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         
         let meetingService = MobileRTC.shared().getMeetingService()
         let meetingSettings = MobileRTC.shared().getMeetingSettings()
-        
+        try if #available(iOS 13.0, *) {
+            MobileRTC.shared().setMobileRTCRootController(self.navigationController)
+        }
         if meetingService != nil {
             
             let arguments = call.arguments as! Dictionary<String, String?>
