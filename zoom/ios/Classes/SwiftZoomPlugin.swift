@@ -109,11 +109,9 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
         
         let meetingService = MobileRTC.shared().getMeetingService()
         let meetingSettings = MobileRTC.shared().getMeetingSettings()
-        try if #available(iOS 13.0, *) {
-            MobileRTC.shared().setMobileRTCRootController(self.navigationController)
-        }
+        
         if meetingService != nil {
-            
+            meetingSettings?.disableMinimizeMeeting(true);
             let arguments = call.arguments as! Dictionary<String, String?>
             
             meetingSettings?.disableDriveMode(parseBoolean(data: arguments["disableDrive"]!, defaultValue: false))
@@ -182,6 +180,7 @@ public class SwiftZoomPlugin: NSObject, FlutterPlugin,FlutterStreamHandler , Mob
             
             let arguments = call.arguments as! Dictionary<String, String?>
             
+            meetingSettings?.disableMinimizeMeeting(true);
             meetingSettings?.disableDriveMode(parseBoolean(data: arguments["disableDrive"]!, defaultValue: false))
             meetingSettings?.disableCall(in: parseBoolean(data: arguments["disableDialIn"]!, defaultValue: false))
             meetingSettings?.setAutoConnectInternetAudio(parseBoolean(data: arguments["noDisconnectAudio"]!, defaultValue: false))
